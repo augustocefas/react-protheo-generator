@@ -4,10 +4,17 @@
 
    
     $nomeDoModulo = 'PremioDireto';
+
+    $campos = [
+        'id' => 'number',
+        'nomeProduto' => 'string',
+        'codProdutoOrigem' => 'string',
+    ];
     
     use App\Generator\CrudGenerator;
 
-    $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output');
+    $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output', $campos);
+    $crud -> setFields($campos);
     echo $crud->basePath;
 
        $crud->createModuleFolders();

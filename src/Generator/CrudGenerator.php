@@ -13,11 +13,18 @@ class CrudGenerator
 {
     private string $moduleName;
     public string $basePath;
-
+    public array $fields;
     public function __construct(string $moduleName, string $basePath = 'output')
     {
         $this->moduleName = $moduleName;
         $this->basePath = rtrim($basePath, '/');
+    }
+
+    public function setFields($fields){
+        if(!is_array($fields) || empty($fields)) {
+            throw new \InvalidArgumentException("Os campos devem ser um array não vazio.");
+        }
+        $this->fields = $fields;
     }
 
     public function createModuleFolders(): void
@@ -125,6 +132,7 @@ class CrudGenerator
     public function generateModel(): void
     {
         $model = new ModelGenerator($this->moduleName, $this->basePath);
+        $model->setFields($this->fields);
         $model->generate();
     }
 
