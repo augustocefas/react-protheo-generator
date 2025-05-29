@@ -41,9 +41,9 @@ export default function Cadastro{$this->moduleName}() {
 TSX;
 
         if (file_put_contents($file, $content)) {
-            echo "✅ Página principal criada: {$file}\n";
+            echo "✅ Página principal criada: {$file}<br>";
         } else {
-            echo "❌ Falha ao criar página principal: {$file}\n";
+            echo "❌ Falha ao criar página principal: {$file}<br>";
         }
     }
 }

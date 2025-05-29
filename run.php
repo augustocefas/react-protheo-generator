@@ -3,18 +3,22 @@
     
 
    
-    $nomeDoModulo = 'PremioDireto';
+    $nomeDoModulo = 'CoberturaDePara';
 
     $campos = [
-        'id' => 'number',
-        'nomeProduto' => 'string',
-        'codProdutoOrigem' => 'string',
+        'codCoberturaPara' => 'number',
+        'codCoberturaDe' => 'string',
     ];
+
+    $updateKey = [];
+    $deleteKey = [];
     
     use App\Generator\CrudGenerator;
 
     $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output', $campos);
     $crud -> setFields($campos);
+        $crud -> setDeleteUpdateKey($campos, $campos, 'update');
+        $crud -> setDeleteUpdateKey($campos, [], 'delete');
     echo $crud->basePath;
 
        $crud->createModuleFolders();

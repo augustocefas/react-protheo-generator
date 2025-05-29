@@ -14,6 +14,10 @@ class CrudGenerator
     private string $moduleName;
     public string $basePath;
     public array $fields;
+
+    public $updateKey;
+    public $deleteKey;
+
     public function __construct(string $moduleName, string $basePath = 'output')
     {
         $this->moduleName = $moduleName;
@@ -25,6 +29,12 @@ class CrudGenerator
             throw new \InvalidArgumentException("Os campos devem ser um array não vazio.");
         }
         $this->fields = $fields;
+    }
+
+    public function setDeleteUpdateKey($a, $b, $type): void
+    {
+        if($type=='update') $this->updateKey = [$a, $b];
+        if($type=='delete') $this->deleteKey = [$a, $b];
     }
 
     public function createModuleFolders(): void
@@ -133,6 +143,8 @@ class CrudGenerator
     {
         $model = new ModelGenerator($this->moduleName, $this->basePath);
         $model->setFields($this->fields);
+        $model->setUpdateKey($this->updateKey);
+        $model->setDeleteKey($this->deleteKey); 
         $model->generate();
     }
 
