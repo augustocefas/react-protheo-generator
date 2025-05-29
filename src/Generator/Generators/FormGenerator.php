@@ -16,7 +16,7 @@ class FormGenerator
     public function generate(): void
     {
         $formFolder = "FormCadastro{$this->moduleName}";
-        $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/Cadastro{$this->moduleName}/{$formFolder}";
+        $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/{$this->moduleName}/{$formFolder}";
 
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);

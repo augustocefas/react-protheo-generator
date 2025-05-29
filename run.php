@@ -32,10 +32,10 @@
        //gera model
        $crud->generateModel();
 
-       $crud->generateEntryPage();
+      $crud->generateEntryPage();
 
       //gera form
-       $crud->generateForm();
+       //$crud->generateForm();
        //gera table
        $crud->generateTable();
        $crud->generateRootFiles();

@@ -14,18 +14,19 @@ class EntryPageGenerator
     }
 
     public function generate(): void
-    {
-        $module = $this->moduleName;
-        $dir = "{$this->basePath}/{$module}/pages/Cadastros/Cadastro{$module}";
-        $fileName = "Cadastro{$module}.tsx";
-        $filePath = "{$dir}/{$fileName}";
+{
+    $module = $this->moduleName;
+    $dir = "{$this->basePath}/{$module}/pages/Cadastros/{$module}";
+    $fileName = "/{$module}.tsx";
+    $filePath = "{$dir}/{$fileName}";
 
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-            chmod($dir, 0777);
-        }
+    
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777, true);
+        chmod($dir, 0777);
+    }
 
-        $content = <<<TSX
+    $content = <<<TSX
 import { Stack, Typography } from "@mui/material"
 import { Row } from "@/components/Grid/Row/Row"
 import { Col } from "@/components/Grid/Col/Col"
@@ -40,10 +41,7 @@ export const Cadastro{$module} = () => {
 
     return (
         <Stack>
-            <Row
-                alignItems="center"
-                mb={2}
-            >
+            <Row alignItems="center" mb={2}>
                 <Col size="grow">
                     <Typography variant="text_18_semibold">{$module}</Typography>
                 </Col>
@@ -58,18 +56,18 @@ export const Cadastro{$module} = () => {
             </Row>
 
             <TabelaCadastro{$module} />
-
             <FormCadastro{$module} open={!!cadastroModal.data?.nome} />
         </Stack>
     )
 }
 TSX;
 
-        if (file_put_contents($filePath, $content)) {
-            chmod($filePath, 0755);
-            echo "✅ Página de entrada criada: {$filePath}\n";
-        } else {
-            echo "❌ Erro ao criar a página de entrada: {$filePath}\n";
-        }
+    if (file_put_contents($filePath, $content)) {
+        chmod($filePath, 0755);
+        echo "✅ Página de entrada criada: {$filePath}\n";
+    } else {
+        echo "❌ Erro ao criar a página de entrada: {$filePath}\n";
     }
+}
+
 }
