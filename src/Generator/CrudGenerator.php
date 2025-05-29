@@ -17,11 +17,20 @@ class CrudGenerator
 
     public $updateKey;
     public $deleteKey;
+    public $masterKey;
 
     public function __construct(string $moduleName, string $basePath = 'output')
     {
         $this->moduleName = $moduleName;
         $this->basePath = rtrim($basePath, '/');
+    }
+
+    public function setMasterKey($masterKey): void
+    {
+        if (empty($masterKey)) {
+            throw new \InvalidArgumentException("A chave mestre não pode ser vazia.");
+        }
+        $this->masterKey = $masterKey;
     }
 
     public function setFields($fields){
@@ -136,12 +145,14 @@ class CrudGenerator
     public function generateController(?string $fileName = null): void
     {
         $controller = new ControllerGenerator($this->moduleName, $this->basePath, $fileName);
+        $controller->masterKey = $this->masterKey;
         $controller->generate();
     }
     
     public function generateModel(): void
     {
         $model = new ModelGenerator($this->moduleName, $this->basePath);
+        $model->masterKey = $this->masterKey;
         $model->setFields($this->fields);
         $model->setUpdateKey($this->updateKey);
         $model->setDeleteKey($this->deleteKey); 

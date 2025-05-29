@@ -12,6 +12,7 @@ class ModelGenerator
     private bool $createFilter = true;
     public  $updateKey;
     public  $deleteKey;
+    public $masterKey;
 
     public function __construct(string $moduleName, string $basePath)
     {

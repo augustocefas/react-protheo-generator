@@ -15,35 +15,61 @@ class EntryPageGenerator
 
     public function generate(): void
     {
-        $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/Cadastro{$this->moduleName}";
-        $file = "{$dir}/Cadastro{$this->moduleName}.tsx";
+        $module = $this->moduleName;
+        $dir = "{$this->basePath}/{$module}/pages/Cadastros/Cadastro{$module}";
+        $fileName = "Cadastro{$module}.tsx";
+        $filePath = "{$dir}/{$fileName}";
 
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
+            chmod($dir, 0777);
         }
 
         $content = <<<TSX
-// Auto-gerado por CrudGenerator
+import { Stack, Typography } from "@mui/material"
+import { Row } from "@/components/Grid/Row/Row"
+import { Col } from "@/components/Grid/Col/Col"
+import { Button } from "@/components/Button"
+import { Plus } from "@/assets/gallery"
+import { TabelaCadastro{$module} } from "./TabelaCadastro{$module}/TabelaCadastro{$module}"
+import { useCadastroAtom } from "@/modulos/resseguro/atoms/cadastros.atom"
+import { FormCadastro{$module} } from "./FormCadastro{$module}/FormCadastro{$module}"
 
-import React from 'react';
-import FormCadastro{$this->moduleName} from './FormCadastro{$this->moduleName}/FormCadastro{$this->moduleName}';
-import TabelaCadastro{$this->moduleName} from './TabelaCadastro{$this->moduleName}/TabelaCadastro{$this->moduleName}';
+export const Cadastro{$module} = () => {
+    const { modal: cadastroModal } = useCadastroAtom()
 
-export default function Cadastro{$this->moduleName}() {
-  return (
-    <div>
-      <h1>Cadastro de {$this->moduleName}</h1>
-      <FormCadastro{$this->moduleName} />
-      <TabelaCadastro{$this->moduleName} />
-    </div>
-  );
+    return (
+        <Stack>
+            <Row
+                alignItems="center"
+                mb={2}
+            >
+                <Col size="grow">
+                    <Typography variant="text_18_semibold">{$module}</Typography>
+                </Col>
+                <Col>
+                    <Button
+                        tamanho="md"
+                        onClick={() => cadastroModal.set({ nome: "ADICIONAR" })}
+                    >
+                        <Plus /> Adicionar
+                    </Button>
+                </Col>
+            </Row>
+
+            <TabelaCadastro{$module} />
+
+            <FormCadastro{$module} open={!!cadastroModal.data?.nome} />
+        </Stack>
+    )
 }
 TSX;
 
-        if (file_put_contents($file, $content)) {
-            echo "✅ Página principal criada: {$file}<br>";
+        if (file_put_contents($filePath, $content)) {
+            chmod($filePath, 0755);
+            echo "✅ Página de entrada criada: {$filePath}\n";
         } else {
-            echo "❌ Falha ao criar página principal: {$file}<br>";
+            echo "❌ Erro ao criar a página de entrada: {$filePath}\n";
         }
     }
 }

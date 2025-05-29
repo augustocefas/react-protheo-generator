@@ -10,16 +10,20 @@
         'codCoberturaDe' => 'string',
     ];
 
+    $masterKey = 'codCoberturaPara';
+
     $updateKey = [];
     $deleteKey = [];
     
     use App\Generator\CrudGenerator;
 
     $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output', $campos);
-    $crud -> setFields($campos);
+        $crud -> setFields($campos);
+        $crud -> setMasterKey($masterKey);
         $crud -> setDeleteUpdateKey($campos, $campos, 'update');
         $crud -> setDeleteUpdateKey($campos, [], 'delete');
-    echo $crud->basePath;
+        
+        echo $crud->basePath;
 
        $crud->createModuleFolders();
         

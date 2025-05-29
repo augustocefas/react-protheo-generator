@@ -6,7 +6,7 @@ class ControllerGenerator
 {
     private string $moduleName;
     private string $basePath;
-
+    public $masterKey;
     public function __construct(string $moduleName, string $basePath, ?string $controllerFileName = null)
     {
         $this->moduleName = $moduleName;
@@ -109,7 +109,9 @@ export const use{$pascal}DeleteMutation = (
     return useMutation({
         mutationFn: async (request: {$pascal}DeleteRequest) => {
             const { data } = await api.delete<ResponseGeral<{$pascal}DeleteResponse>>(
-                `/{$kebab}/\${request.codigoPessoa}/\${request.codigoCobertura}`
+                `/{$kebab}/\${request.{$this->masterKey}}`, {
+                    data: request,
+                }
             )
             return data
         },
