@@ -15,73 +15,65 @@ class FormGenerator
 
     public function generate(): void
     {
-        $formFolder = "FormCadastro{$this->moduleName}";
-        $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/{$this->moduleName}/{$formFolder}";
-
+      $module = $this->moduleName;
+      $dir = "{$this->basePath}/{$module}/pages/Cadastros/Cadastro{$module}/Form{$module}";
+      $fileName = "/{$module}.tsx";
+      $filePath = "{$dir}/{$fileName}";
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
             chmod($dir, 0777);
         }
 
-        $files = [
-            "{$formFolder}.tsx" => <<<TSX
-// Auto-gerado por CrudGenerator
-import { use{$formFolder} } from "./{$formFolder}.hook";
-
-export default function {$formFolder}() {
-  const { formData } = use{$formFolder}();
-
-  return (
-    <form>
-      <h2>Formulário de {$this->moduleName}</h2>
-      {/* Campos do formulário aqui */}
-    </form>
-  );
-}
-TSX,
-
-            "{$formFolder}.hook.ts" => <<<TS
-// Auto-gerado por CrudGenerator
-
-export function use{$formFolder}() {
-  const formData = {};
-
-  return { formData };
-}
-TS,
-
-            "{$formFolder}.schema.ts" => <<<TS
-// Auto-gerado por CrudGenerator
-
-export const {$formFolder}Schema = {
-  // Definição do schema de validação
-};
-TS,
-
-            "{$formFolder}.types.ts" => <<<TS
-// Auto-gerado por CrudGenerator
-
-export type {$formFolder}Data = {
-  // Definição dos tipos para o formulário
-};
-TS,
-
-            "{$formFolder}.utils.ts" => <<<TS
-// Auto-gerado por CrudGenerator
-
-export function format{$this->moduleName}Data(data: any) {
-  // Lógica de formatação
-  return data;
-}
-TS,
-        ];
-
-        foreach ($files as $fileName => $content) {
-            $path = "{$dir}/{$fileName}";
-            file_put_contents($path, $content);
-            chmod($path, 0755);
-        }
-
-        echo "✅ Formulário completo gerado em: {$dir}\n";
+        $file = "{$dir}/Form{$module}.tsx";
+        $hook = "{$dir}/Form{$module}.hook.tsx";
+        $schema = "{$dir}/Form{$module}.schema.tsx";
+        $types = "{$dir}/Form{$module}.types.tsx";
+        $utils = "{$dir}/Form{$module}.utils.tsx";
+        
+        $this->form($file);
+        $this->createHook($hook);
+        $this->createSchema($schema);
+        $this->formTypes($types);
+        $this->formUtils($utils);
+        
     }
+
+    public function createFile($filePath, $content): void
+    {
+      if (file_put_contents($filePath, $content)) {
+        chmod($filePath, 0755);
+        echo "✅ Página de entrada criada: {$filePath}\n";
+    } else {
+        echo "❌ Erro ao criar a página de entrada: {$filePath}\n";
+    }
+    }
+
+    public function createHook(string $caminho): void
+    {
+      $content = "";
+      $this->createFile($caminho, $content);
+    }
+    public function createSchema(string $caminho): void
+    {
+      $content = "";
+      $this->createFile($caminho, $content);
+    }
+    public function form(string $caminho): void
+    {
+      $content = "";
+      $this->createFile($caminho, $content);
+    }
+    public function formTypes(string $caminho): void
+    {
+      $content = "";
+      $this->createFile($caminho, $content);
+    }
+    public function formUtils(string $caminho): void
+    {
+      $content = "";
+      $this->createFile($caminho, $content);
+    }
+
+
+        
 }

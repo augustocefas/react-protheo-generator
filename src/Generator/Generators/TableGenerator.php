@@ -19,7 +19,7 @@ class TableGenerator
     public function generate(): void
     {
         $this->nomePastaTabela = "Tabela{$this->moduleName}";
-        $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/{$this->moduleName}/{$this->nomePastaTabela}";
+        $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/Cadastro{$this->moduleName}/{$this->nomePastaTabela}";
 
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);

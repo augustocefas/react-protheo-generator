@@ -77,15 +77,15 @@ class CrudGenerator
         }
 
         $moduleUc = ucfirst($this->moduleName);
-        $cadastroBase = "{$modulePath}/pages/Cadastros/{$moduleUc}";
-
+        $cadastroBase = "{$modulePath}/pages/Cadastros/Cadastro{$moduleUc}";
+       
         $folders = [
             "{$modulePath}/controllers",
             "{$modulePath}/models",
             "{$modulePath}/routes",
             
             $cadastroBase,
-            "{$cadastroBase}/FormCadastro{$moduleUc}",
+            "{$cadastroBase}/Form{$moduleUc}",
           
         ];
         

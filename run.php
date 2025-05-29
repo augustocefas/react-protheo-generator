@@ -35,7 +35,7 @@
       $crud->generateEntryPage();
 
       //gera form
-       //$crud->generateForm();
+       $crud->generateForm();
        //gera table
        $crud->generateTable();
        $crud->generateRootFiles();
