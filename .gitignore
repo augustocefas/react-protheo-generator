@@ -1,0 +1,27 @@
+# Ignorar dependências do Composer
+/vendor/
+
+# Ignorar pastas de build ou geração automática
+/output/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de cache
+*.cache
+*.tmp
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos de IDEs
+.idea/
+.vscode/
+
+# Ignorar arquivos de execução temporária
+*.swp
+*.swo
+
+# Ignorar arquivos de backup
+*~
