@@ -6,11 +6,13 @@ class EntryPageGenerator
 {
     private string $moduleName;
     private string $basePath;
+    private string $titulo;
 
     public function __construct(string $moduleName, string $basePath)
     {
         $this->moduleName = ucfirst($moduleName);
         $this->basePath = rtrim($basePath, '/');
+        $this->titulo = ucfirst(strtolower(preg_replace('/(?<!^)([A-Z])/', ' $1', $this->moduleName)));
     }
 
     public function generate(): void
@@ -19,7 +21,7 @@ class EntryPageGenerator
     $dir = "{$this->basePath}/{$module}/pages/Cadastros/Cadastro{$module}";
     $fileName = "/Cadastro{$module}.tsx";
     $filePath = "{$dir}/{$fileName}";
-
+    $titulo = $this->titulo;
     
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
@@ -43,7 +45,7 @@ export const Cadastro{$module} = () => {
         <Stack>
             <Row alignItems="center" mb={2}>
                 <Col size="grow">
-                    <Typography variant="text_18_semibold">{$module}</Typography>
+                    <Typography variant="text_18_semibold">{$titulo}</Typography>
                 </Col>
                 <Col>
                     <Button
@@ -64,9 +66,9 @@ TSX;
 
     if (file_put_contents($filePath, $content)) {
         chmod($filePath, 0755);
-        echo "✅ Página de entrada criada: {$filePath}\n<br>";
+        echo "✅ Página de entrada criada: {$filePath}\n\n";
     } else {
-        echo "❌ Erro ao criar a página de entrada: {$filePath}\n<br>";
+        echo "❌ Erro ao criar a página de entrada: {$filePath}\n\n";
     }
 }
 

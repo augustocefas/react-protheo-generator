@@ -60,13 +60,17 @@ class ModelGenerator
         return "export type {$this->moduleName}ListResponse = ResponseGeral<{$this->moduleName}[]> \n\n";
     }
 
+   
+
     private function generateInterfaceContent(): string
     {
         $interfaceName = ucfirst($this->moduleName);
         $lines = ["export interface {$interfaceName} {"];
         if($this->createFilter){
-            foreach ($this->fields as $field => $type) {
-                $lines[] = "{$this->spaceIdent}{$field}: {$type};";
+            foreach ($this->fields as $field => $config) {
+                $type = $config['type'];
+                $required = $config['required'] ? '' : '?'; 
+                $lines[] = "{$this->spaceIdent}{$field}{$required}: {$type};";
             }
         }
         $lines[] = "}";
@@ -90,28 +94,40 @@ class ModelGenerator
         $lines = ["export type {$interfaceName}".ucfirst($type)." = {"];
         
         if($type === 'CreateOrUpdateRequest') {      
-            foreach ($this->fields as $field => $type) {
-                if (array_key_exists($field, $this->updateKey[0])) 
-                    $lines[] = "{$this->spaceIdent}{$field}: {$type};";
+            foreach ($this->fields as $field => $config) {
+                if (array_key_exists($field, $this->updateKey[0])) {
+                    $type = $config['type'];
+                    $required = $config['required'] ? '' : '?';
+                    $lines[] = "{$this->spaceIdent}{$field}{$required}: {$type};";
+                }
             }
         }
         if($type === 'CreateOrUpdateResponse') {
-            foreach ($this->fields as $field => $type) {
-                if (array_key_exists($field, $this->updateKey[1])) 
-                $lines[] = "{$this->spaceIdent}{$field}: {$type};";
+            foreach ($this->fields as $field => $config) {
+                if (array_key_exists($field, $this->updateKey[0])) {
+                    $type = $config['type'];
+                    $required = $config['required'] ? '' : '?';
+                    $lines[] = "{$this->spaceIdent}{$field}{$required}: {$type};";
+                }
             }
         }
 
         if($type === 'DeleteRequest') {      
-            foreach ($this->fields as $field => $type) {
-                if (array_key_exists($field, $this->deleteKey[0])) 
-                    $lines[] = "{$this->spaceIdent}{$field}: {$type};";
+            foreach ($this->fields as $field => $config) {
+                if (array_key_exists($field, $this->updateKey[0])) {
+                    $type = $config['type'];
+                    $required = $config['required'] ? '' : '?';
+                    $lines[] = "{$this->spaceIdent}{$field}{$required}: {$type};";
+                }
             }
         }
         if($type === 'DeleteResponse') {
-            foreach ($this->fields as $field => $type) {
-                if (array_key_exists($field, $this->deleteKey[1])) 
-                $lines[] = "{$this->spaceIdent}{$field}: {$type};";
+            foreach ($this->fields as $field => $config) {
+                if (array_key_exists($field, $this->updateKey[0])) {
+                    $type = $config['type'];
+                    $required = $config['required'] ? '' : '?';
+                    $lines[] = "{$this->spaceIdent}{$field}{$required}: {$type};";
+                }
             }
         }
         

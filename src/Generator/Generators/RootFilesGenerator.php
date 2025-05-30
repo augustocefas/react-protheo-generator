@@ -52,6 +52,6 @@ TS;
         file_put_contents("{$dir}/page.add.ts,json", $pagesContent);
         chmod("{$dir}/page.add.ts,json", 0755);
 
-        echo "✅ Arquivos index.tsx e pages.ts gerados na raiz de {$this->moduleName}\n<br>";
+        echo "✅ Arquivos index.tsx e pages.ts gerados na raiz de {$this->moduleName}\n\n";
     }
 }

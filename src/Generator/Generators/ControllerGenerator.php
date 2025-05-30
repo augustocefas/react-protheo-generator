@@ -143,9 +143,9 @@ TS;
 
         if (file_put_contents($filePath, $content)) {
             chmod($filePath, 0755);
-            echo "✅ Controller criado: {$filePath}\n<br>";
+            echo "✅ Controller criado: {$filePath}\n\n";
         } else {
-            echo "❌ Falha ao criar controller em: {$filePath}\n<br>";
+            echo "❌ Falha ao criar controller em: {$filePath}\n\n";
         }
     }
 }

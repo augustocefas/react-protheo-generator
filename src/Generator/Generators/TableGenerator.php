@@ -10,10 +10,20 @@ class TableGenerator
     public string $nomePastaTabela;
     private string $nomeTabela;
 
+    public $fields;
+
     public function __construct(string $moduleName, string $basePath)
     {
         $this->moduleName = ucfirst($moduleName);
         $this->basePath = rtrim($basePath, '/');
+    }
+
+    public function setFields(array $fields): void
+    {
+        if (empty($fields)) {
+            throw new \InvalidArgumentException("Os campos não podem ser vazios.");
+        }
+        $this->fields = $fields;
     }
 
     public function generate(): void
@@ -34,7 +44,7 @@ class TableGenerator
         $this->tableCreate($fileTabela);
         $this->utilsCreate($fileUtils);
 
-        echo "✅ Tabela criada em: {$dir}<br>";
+        echo "✅ Tabela criada em: {$dir}\n";
     }
 
 public function utilsCreate(string $fileUtils): void

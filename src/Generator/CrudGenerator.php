@@ -168,6 +168,7 @@ class CrudGenerator
     public function generateTable(): void
     {
         $table = new TableGenerator($this->moduleName, $this->basePath);
+        $table->setFields($this->fields);
         $table->generate();
     }
     public function generateEntryPage(): void

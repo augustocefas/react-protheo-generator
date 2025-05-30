@@ -1,12 +1,21 @@
 <?php include "config.php";
 
       
-    $nomeDoModulo = 'DougComponent';
+    $nomeDoModulo = 'DeParaCobertura';
 
     $campos = [
         'id' => 'number',
         'nome' => 'string',
         'descricao' => 'string',
+    ];
+
+    $camposComplete = [
+        'id' => [
+            'type' => 'number', 
+            'required' => true, 
+            'table'=>[]
+        ]
+        
     ];
 
     $masterKey = 'id';
@@ -17,7 +26,7 @@
     use App\Generator\CrudGenerator;
 
     $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output', $campos);
-        $crud -> setFields($campos);
+        $crud -> setFields($camposComplete);
         $crud -> setMasterKey($masterKey);
         $crud -> setDeleteUpdateKey($campos, $campos, 'update');
         $crud -> setDeleteUpdateKey($campos, [], 'delete');
