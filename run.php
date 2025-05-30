@@ -1,16 +1,15 @@
 <?php include "config.php";
 
-    
-
-   
-    $nomeDoModulo = 'CoberturaDePara';
+      
+    $nomeDoModulo = 'DougComponent';
 
     $campos = [
-        'codCoberturaPara' => 'number',
-        'codCoberturaDe' => 'string',
+        'id' => 'number',
+        'nome' => 'string',
+        'descricao' => 'string',
     ];
 
-    $masterKey = 'codCoberturaPara';
+    $masterKey = 'id';
 
     $updateKey = [];
     $deleteKey = [];
@@ -23,8 +22,8 @@
         $crud -> setDeleteUpdateKey($campos, $campos, 'update');
         $crud -> setDeleteUpdateKey($campos, [], 'delete');
         
-        echo $crud->basePath;
-
+        
+        //gera extrutura de pastas-------------------
        $crud->createModuleFolders();
         
        //gera controller
@@ -38,6 +37,7 @@
        $crud->generateForm();
        //gera table
        $crud->generateTable();
+       //gera arquivos raiz
        $crud->generateRootFiles();
     
        

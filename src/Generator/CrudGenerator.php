@@ -51,14 +51,14 @@ class CrudGenerator
         
         if (!is_dir($this->basePath)) {
             if (!mkdir($this->basePath, 0777, true)) {
-                echo "❌ Não foi possível criar a pasta base: {$this->basePath}\n";
+                echo "❌ Não foi possível criar a pasta base: {$this->basePath}\n<br>";
                 return;
             }
         }
     
         // Verifica permissão
         if (!is_writable($this->basePath)) {
-            echo "❌ Sem permissão de escrita na pasta base: {$this->basePath}\n";
+            echo "❌ Sem permissão de escrita na pasta base: {$this->basePath}\n<br>";
             chmod($this->basePath, 0777);
             return;
         }
@@ -71,7 +71,7 @@ class CrudGenerator
             if (mkdir($modulePath, 0777, true)) {
                 chmod($modulePath, 0777);
             } else {
-                echo "❌ Erro ao criar módulo: {$modulePath}\n";
+                echo "❌ Erro ao criar módulo: {$modulePath}\n<br>";
                 return;
             }
         }
@@ -93,9 +93,9 @@ class CrudGenerator
             if (!is_dir($folder)) {
                 if (mkdir($folder, 0777, true)) {
                     chmod($folder, 0777);
-                    echo "📁 Criado: {$folder}\n";
+                    echo "📁 Criado: {$folder}\n<br>";
                 } else {
-                    echo "❌ Erro ao criar pasta: {$folder}\n";
+                    echo "❌ Erro ao criar pasta: {$folder}\n<br>";
                 }
             }
         }
@@ -119,13 +119,13 @@ class CrudGenerator
         }
 
         chmod($path, $permissions);
-        echo "✅ Permissões 0777 aplicadas recursivamente em: {$path}\n";
+        echo "✅ Permissões 0777 aplicadas recursivamente em: {$path}\n<br>";
     }
 
     public function setAllFilesToExecutable(string $path): void
     {
         if (!file_exists($path)) {
-            echo "❌ Caminho não encontrado: {$path}\n";
+            echo "❌ Caminho não encontrado: {$path}\n<br>";
             return;
         }
 
@@ -139,7 +139,7 @@ class CrudGenerator
             }
         }
 
-        echo "✅ Todos os arquivos em {$path} foram definidos como 0755\n";
+        echo "✅ Todos os arquivos em {$path} foram definidos como 0755\n<br>";
     }
     
     public function generateController(?string $fileName = null): void

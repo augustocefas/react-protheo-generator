@@ -42,35 +42,35 @@ class FormGenerator
     {
       if (file_put_contents($filePath, $content)) {
         chmod($filePath, 0755);
-        echo "✅ Página de entrada criada: {$filePath}\n";
+        echo "✅ Página de entrada criada: {$filePath}\n<br>";
     } else {
-        echo "❌ Erro ao criar a página de entrada: {$filePath}\n";
+        echo "❌ Erro ao criar a página de entrada: {$filePath}\n<br>";
     }
     }
 
     public function createHook(string $caminho): void
     {
-      $content = "";
+      $content = "//modelo de hook do form {$this->moduleName}\n";
       $this->createFile($caminho, $content);
     }
     public function createSchema(string $caminho): void
     {
-      $content = "";
+      $content = "//modelo de hook do form {$this->moduleName}\n";
       $this->createFile($caminho, $content);
     }
     public function form(string $caminho): void
     {
-      $content = "";
+       $content = "//modelo de hook do form {$this->moduleName}\n";
       $this->createFile($caminho, $content);
     }
     public function formTypes(string $caminho): void
     {
-      $content = "";
+      $content = "//modelo de hook do form {$this->moduleName}\n";
       $this->createFile($caminho, $content);
     }
     public function formUtils(string $caminho): void
     {
-      $content = "";
+      $content = "//modelo de hook do form {$this->moduleName}\n";
       $this->createFile($caminho, $content);
     }
 

@@ -17,7 +17,7 @@ class EntryPageGenerator
 {
     $module = $this->moduleName;
     $dir = "{$this->basePath}/{$module}/pages/Cadastros/Cadastro{$module}";
-    $fileName = "/{$module}.tsx";
+    $fileName = "/Cadastro{$module}.tsx";
     $filePath = "{$dir}/{$fileName}";
 
     
@@ -64,9 +64,9 @@ TSX;
 
     if (file_put_contents($filePath, $content)) {
         chmod($filePath, 0755);
-        echo "✅ Página de entrada criada: {$filePath}\n";
+        echo "✅ Página de entrada criada: {$filePath}\n<br>";
     } else {
-        echo "❌ Erro ao criar a página de entrada: {$filePath}\n";
+        echo "❌ Erro ao criar a página de entrada: {$filePath}\n<br>";
     }
 }
 

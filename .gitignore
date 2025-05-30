@@ -3,7 +3,8 @@
 
 # Ignorar pastas de build ou geração automática
 /output/
-
+/import.file.json
+/import.php
 # Ignorar arquivos de log
 *.log
 

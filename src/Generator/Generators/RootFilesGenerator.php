@@ -24,32 +24,34 @@ class RootFilesGenerator
 
         // index.tsx
         $indexContent = <<<TSX
-// Auto-gerado por CrudGenerator
-
-export default function {$this->moduleName}Index() {
-  return (
-    <div>
-      <h1>Módulo {$this->moduleName}</h1>
-    </div>
-  );
+{
+  path: "de-para-cobertura",
+  element: (
+    <Paginas.resseguro.cadastros.Cadastro{$this->moduleName} />
+  ),
 }
 TSX;
 
-        file_put_contents("{$dir}/index.tsx", $indexContent);
-        chmod("{$dir}/index.tsx", 0755);
+        file_put_contents("{$dir}/index.add.tsx.json", $indexContent);
+        chmod("{$dir}/index.add.tsx.json", 0755);
 
         // pages.ts
         $pagesContent = <<<TS
-// Auto-gerado por CrudGenerator
+//add to header file
+import { Cadastro{$this->moduleName} } from "@/modulos/resseguro/pages/Cadastros/Cadastro{$this->moduleName}/Cadastro{$this->moduleName}"
 
-export const {$this->moduleName}Pages = [
-  // Adicione suas rotas aqui
-];
+//add to pages file
+{
+          
+Cadastro{$this->moduleName},
+      
+}
+
 TS;
 
-        file_put_contents("{$dir}/pages.ts", $pagesContent);
-        chmod("{$dir}/pages.ts", 0755);
+        file_put_contents("{$dir}/page.add.ts,json", $pagesContent);
+        chmod("{$dir}/page.add.ts,json", 0755);
 
-        echo "✅ Arquivos index.tsx e pages.ts gerados na raiz de {$this->moduleName}\n";
+        echo "✅ Arquivos index.tsx e pages.ts gerados na raiz de {$this->moduleName}\n<br>";
     }
 }
