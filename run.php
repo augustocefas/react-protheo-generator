@@ -1,35 +1,37 @@
 <?php include "config.php";
 
       
-    $nomeDoModulo = 'DeParaCobertura';
+    $nomeDoModulo = 'TabuaIdade';
 
-    $campos = [
-        'id' => 'number',
-        'nome' => 'string',
-        'descricao' => 'string',
+    $camposComplete  = [
+        "codigoTabua"=>[
+            "type"=>"number", 
+            "required"=>true, 
+            "table"=>[ 'titulo'=>'Codigo']],
+        "idade"=> ["type"=>"number", "required"=>true, "table"=>['titulo'=>'idade']],
+        "sexo"=> ["type"=>"string", "required"=>true, "table"=>['titulo'=>'Sexo']],
+        "idCobertura"=> ["type"=>"number", "required"=>true, "table"=>['titulo'=>'id Cobertura']],
+        "dataInicioVigencia"=> ["type"=>"string", "required"=>true, "table"=>['titulo'=>'Data início vigência']],
+        "dataFimVigencia"=> ["type"=>"string", "required"=>true, "table"=>['titulo'=>'Data fim vigência']],
+        "dataCadastro"=>  ["type"=>"string", "required"=>true, "table"=>['titulo'=>'Data cadastro']],
+        "idStatus"=> ["type"=>"number", "required"=>true, "table"=>['titulo'=>'idStatus']],
+        "nomeStatus"=> ["type"=>"string", "required"=>true, "table"=>['titulo'=>'Status']],
     ];
 
-    $camposComplete = [
-        'id' => [
-            'type' => 'number', 
-            'required' => true, 
-            'table'=>[]
-        ]
-        
-    ];
-
-    $masterKey = 'id';
+   
+  
+    $masterKey = 'codigoTabua';
 
     $updateKey = [];
     $deleteKey = [];
     
     use App\Generator\CrudGenerator;
 
-    $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output', $campos);
+    $crud = new CrudGenerator($nomeDoModulo, ROOT.DS.'output', $camposComplete);
         $crud -> setFields($camposComplete);
         $crud -> setMasterKey($masterKey);
-        $crud -> setDeleteUpdateKey($campos, $campos, 'update');
-        $crud -> setDeleteUpdateKey($campos, [], 'delete');
+        $crud -> setDeleteUpdateKey($camposComplete, $camposComplete, 'update');
+        $crud -> setDeleteUpdateKey($camposComplete, [], 'delete');
         
         
         //gera extrutura de pastas-------------------
@@ -40,13 +42,14 @@
        //gera model
        $crud->generateModel();
 
-      $crud->generateEntryPage();
+       //gera view do modulo
+       $crud->generateEntryPage();
 
       //gera form
        $crud->generateForm();
        //gera table
        $crud->generateTable();
-       //gera arquivos raiz
+       //gera arquivo de rotas
        $crud->generateRootFiles();
     
        

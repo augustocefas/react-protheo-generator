@@ -16,7 +16,7 @@ class RootFilesGenerator
     public function generate(): void
     {
         $dir = "{$this->basePath}/{$this->moduleName}";
-
+        $kebabName = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $this->moduleName));
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
             chmod($dir, 0777);
@@ -25,7 +25,7 @@ class RootFilesGenerator
         // index.tsx
         $indexContent = <<<TSX
 {
-  path: "de-para-cobertura",
+  path: "{$kebabName}",
   element: (
     <Paginas.resseguro.cadastros.Cadastro{$this->moduleName} />
   ),

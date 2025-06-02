@@ -47,15 +47,53 @@ class TableGenerator
         echo "✅ Tabela criada em: {$dir}\n";
     }
 
-public function utilsCreate(string $fileUtils): void
+    public function utilsCreate(string $fileUtils): void
     {
-      file_put_contents($fileUtils, "// utils {$this->moduleName}\n");
-      chmod($fileUtils, 0755);
+        file_put_contents($fileUtils, "// utils {$this->moduleName}\n");
+        chmod($fileUtils, 0755);
     }
 
     public function hookCreate(string $fileHook): void
     {
         $kebabName = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $this->moduleName));
+
+        $colunas = [];
+        foreach ($this->fields as $field => $type) {
+            $render = '';
+            $titulo = $options['table']['titulo'] ?? $this->humanize($field);
+        
+            $colunas[] = <<<TS
+        {
+            headerName: "{$titulo}",
+            field: "{$field}",
+            flex: 1{$render}
+        }
+TS;
+}
+        
+
+        $colunas[] = <<<TS
+        {
+            headerName: "Ações",
+            field: "actions",
+            type: "actions",
+            width: 150,
+            getActions: (params: GridRowParams) => [
+                <GridActionsCellItem
+                    icon={<Edit01 width={20} height={20} />}
+                    onClick={() => cadastroModal.set({ nome: "EDITAR", dadosIniciais: params.row })}
+                    label="Editar"
+                />,
+                <GridActionsCellItem
+                    icon={<Trash01 width={22} height={22} />}
+                    onClick={() => cadastroDialogs.set({ nome: "ITEM_EXCLUIR", dados: params.row })}
+                    label="Excluir"
+                />,
+            ],
+        }
+TS;
+
+        $colunasString = implode(",\n", $colunas);
 
         $contentHook = <<<TSX
 import {
@@ -86,40 +124,7 @@ export const useTabela{$this->moduleName} = () => {
     }
 
     const colunas: DataGridColunas = [
-        {
-            headerName: "Nome",
-            field: "nome",
-            flex: 1,
-        },
-        {
-            headerName: "Cobertura",
-            field: "nomeCobertura",
-            flex: 1,
-        },
-        {
-            headerName: "Taxa de agravo",
-            field: "taxaAgravo",
-            flex: 1,
-            renderCell: ({ value }) => `\${value}%`,
-        },
-        {
-            headerName: "Ações",
-            field: "actions",
-            type: "actions",
-            width: 150,
-            getActions: (params: GridRowParams) => [
-                <GridActionsCellItem
-                    icon={<Edit01 width={20} height={20} />}
-                    onClick={() => cadastroModal.set({ nome: "EDITAR", dadosIniciais: params.row })}
-                    label="Editar"
-                />,
-                <GridActionsCellItem
-                    icon={<Trash01 width={22} height={22} />}
-                    onClick={() => cadastroDialogs.set({ nome: "ITEM_EXCLUIR", dados: params.row })}
-                    label="Excluir"
-                />,
-            ],
-        },
+{$colunasString}
     ]
 
     const [paginaAtual, setPaginaAtual] = useState(1)
@@ -157,7 +162,8 @@ TSX;
         chmod($fileHook, 0755);
     }
 
-    public function tableCreate($fileTabela){
+    public function tableCreate($fileTabela)
+    {
         $contentTabela = <<<TSX
 import { DataGrid } from "@/components/DataGrid"
 import { useTabela{$this->moduleName} } from "./{$this->nomePastaTabela}.hook"
@@ -199,7 +205,13 @@ export const {$this->nomePastaTabela} = () => {
     )
 }
 TSX;
+
         file_put_contents($fileTabela, $contentTabela);
         chmod($fileTabela, 0755);
+    }
+
+    private function humanize(string $input): string
+    {
+        return ucfirst(preg_replace('/(?<!^)[A-Z]/', ' $0', $input));
     }
 }
