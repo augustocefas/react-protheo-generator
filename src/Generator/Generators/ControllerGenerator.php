@@ -56,6 +56,18 @@ export const use{$pascal}List = (request: {$pascal}ListRequest) => {
         },
     })
 }
+export const use{$pascal}Get = (id: string) => {
+    return useQuery({
+        queryKey: [QueryKeys.{$pascal}List, id],
+        queryFn: async () => {
+            const { data } = await api.get<ResponseGeral<{$pascal}CreateOrUpdateResponse>>(
+                `/{$kebab}/\${id}`
+            )
+            if (!data.sucesso) toast.error("Não foi possível obter o item.")
+            return data
+        },
+    })
+}
 
 export const use{$pascal}CreateMutation = (
     options?: {$pascal}CreateOrUpdateMutationOptions
@@ -86,7 +98,7 @@ export const use{$pascal}UpdateMutation = (
     return useMutation({
         mutationFn: async (request: {$pascal}CreateOrUpdateRequest) => {
             const { data } = await api.put<ResponseGeral<{$pascal}CreateOrUpdateResponse>>(
-                "/{$kebab}", request
+                `/{$kebab}/${request?.id}`, request
             )
             return data
         },

@@ -9,7 +9,7 @@ class TableGenerator
 
     public string $nomePastaTabela;
     private string $nomeTabela;
-
+    public $masterKey;
     public $fields;
 
     public function __construct(string $moduleName, string $basePath)
@@ -28,7 +28,7 @@ class TableGenerator
 
     public function generate(): void
     {
-        $this->nomePastaTabela = "Tabela{$this->moduleName}";
+        $this->nomePastaTabela = "TabelaCadastro{$this->moduleName}";
         $dir = "{$this->basePath}/{$this->moduleName}/pages/Cadastros/Cadastro{$this->moduleName}/{$this->nomePastaTabela}";
 
         if (!is_dir($dir)) {
@@ -140,7 +140,7 @@ export const useTabela{$this->moduleName} = () => {
     const quantidadePaginas = listQuery.data?.paginacao?.quantidadeTotalPaginas || 1
 
     const getRowId = (row: {$this->moduleName}) => {
-        return `\${row.codigoPessoa}-\${row.codigoCobertura}`
+        return row.{$this->masterKey}
     }
 
     return {

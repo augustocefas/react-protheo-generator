@@ -85,7 +85,7 @@ class CrudGenerator
             "{$modulePath}/routes",
             
             $cadastroBase,
-            "{$cadastroBase}/Form{$moduleUc}",
+            "{$cadastroBase}/FormCadastro{$moduleUc}",
           
         ];
         
@@ -162,6 +162,8 @@ class CrudGenerator
     public function generateForm(): void
     {
         $form = new FormGenerator($this->moduleName, $this->basePath);
+        $form->masterKey = $this->masterKey;
+        $form->setFields($this->fields);
         $form->generate();
     }
 
@@ -169,6 +171,7 @@ class CrudGenerator
     {
         $table = new TableGenerator($this->moduleName, $this->basePath);
         $table->setFields($this->fields);
+        $table->masterKey = $this->masterKey;
         $table->generate();
     }
     public function generateEntryPage(): void

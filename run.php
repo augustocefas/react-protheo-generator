@@ -1,9 +1,76 @@
 <?php include "config.php";
 
       
-    $nomeDoModulo = 'TabuaIdade';
+   /* $nomeDoModulo = 'CoberturaDePara';
 
-    $camposComplete  = [
+    $camposComplete = [
+        "codCoberturaDe"=>[
+            "type"=>"string",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Código  Cobertura De']
+        ],
+        "codCoberturaPara"=>[
+            "type"=>"number",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Código Cobertura Para']
+        ]
+    ];
+
+    $masterKey = 'codCoberturaDe'; /*
+*/
+
+/*
+
+   $nomeDoModulo = 'TabuaIdade';
+   $camposComplete = [
+        "codigoTabua"=>[
+            "type"=>"number",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Codigo da tabua']
+        ],
+        "idade"=>[
+            "type"=>"number",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Idade']
+        ],
+        "valorTaxa"=>[
+            "type"=>"string",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Valor da taxa']],
+        "sexo"=>[
+            "type"=>"string",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Sexo']]
+    ];
+    $masterKey = 'codCoberturaDe';
+
+
+*/
+
+
+    $nomeDoModulo = 'Ramo';
+   $camposComplete = [
+        "id"=>[
+            "type"=>"string",
+            "inputType"=>"int",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Codigo do ramo']
+        ],
+        "nomeRamo"=>[
+            "type"=>"string",
+            "inputType"=>"text",
+            "required"=>true,
+            "table"=>[ 'titulo'=>'Ramo de atividade']]
+    ];
+    $masterKey = 'id'; /*
+
+   $camposComplete  = [
         "codigoTabua"=>[
             "type"=>"number", 
             "required"=>true, 
@@ -17,10 +84,10 @@
         "idStatus"=> ["type"=>"number", "required"=>true, "table"=>['titulo'=>'idStatus']],
         "nomeStatus"=> ["type"=>"string", "required"=>true, "table"=>['titulo'=>'Status']],
     ];
-
-   
+  $masterKey = 'codCoberturaDe';
+   */
   
-    $masterKey = 'codigoTabua';
+
 
     $updateKey = [];
     $deleteKey = [];

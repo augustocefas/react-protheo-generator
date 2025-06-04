@@ -34,9 +34,9 @@ import { Row } from "@/components/Grid/Row/Row"
 import { Col } from "@/components/Grid/Col/Col"
 import { Button } from "@/components/Button"
 import { Plus } from "@/assets/gallery"
-import { Tabela{$module} } from "./Tabela{$module}/Tabela{$module}"
+import { TabelaCadastro{$module} } from "./TabelaCadastro{$module}/TabelaCadastro{$module}"
 import { useCadastroAtom } from "@/modulos/resseguro/atoms/cadastros.atom"
-import { Form{$module} } from "./Form{$module}/Form{$module}"
+import { FormCadastro{$module} } from "./FormCadastro{$module}/FormCadastro{$module}"
 
 export const Cadastro{$module} = () => {
     const { modal: cadastroModal } = useCadastroAtom()
@@ -57,8 +57,8 @@ export const Cadastro{$module} = () => {
                 </Col>
             </Row>
 
-            <Tabela{$module} />
-            <Form{$module} open={!!cadastroModal.data?.nome} />
+            <TabelaCadastro{$module} />
+            <FormCadastro{$module} open={!!cadastroModal.data?.nome} />
         </Stack>
     )
 }
